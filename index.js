@@ -62,15 +62,18 @@ const main = async () => {
                         login: user.split("@")[0],
                         email: user,
                     })
+                    .then((_) => {
+                        res.sendStatus(200);
+                    })
                     .catch((err) => {
-                        throw err;
+                        console.log(err);
+                        res.sendStatus(500);
                     });
+            } else {
+                res.sendStatus(200);
             }
-
-            res.sendStatus(200);
         } catch (err) {
             console.log(err);
-            console.log("erroring and failing");
             res.sendStatus(500);
         }
     };
