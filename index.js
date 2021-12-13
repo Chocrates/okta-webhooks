@@ -8,6 +8,9 @@ const { Octokit } = require("@octokit/rest");
 require("dotenv").config();
 
 const main = async () => {
+    const baseUrl = process.env.BASE_URL
+        ? process.env.BASE_URL
+        : "https://api.github.com";
     const installationOctokit = new Octokit({
         authStrategy: createAppAuth,
         auth: {
@@ -15,6 +18,7 @@ const main = async () => {
             privateKey: fs.readFileSync(process.env.APP_PRIVATE_KEY, "utf8"),
             installationId: process.env.INSTALLATION_ID,
         },
+        baseUrl,
     });
 
     const private_key = fs.readFileSync(process.env.PRIVATE_KEY_PATH, "utf8");
