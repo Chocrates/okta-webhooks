@@ -63,8 +63,7 @@ const main = async () => {
                         email: user,
                     })
                     .catch((err) => {
-                        console.log("catching?");
-                        console.log(err);
+                        throw err;
                     });
             }
 
