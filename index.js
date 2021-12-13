@@ -57,15 +57,15 @@ const main = async () => {
 
             // create user
             if (group.toLowerCase() === GROUP.toLowerCase()) {
-                try {
-                    installationOctokit.request("POST /admin/users", {
+                installationOctokit
+                    .request("POST /admin/users", {
                         login: user.split("@")[0],
                         email: user,
+                    })
+                    .catch((err) => {
+                        console.log("catching?");
+                        console.log(err);
                     });
-                } catch (e) {
-                    console.log("why are you not catching");
-                    console.log(e);
-                }
             }
 
             res.sendStatus(200);
