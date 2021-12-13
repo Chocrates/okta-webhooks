@@ -12,13 +12,14 @@ const main = async () => {
         ? process.env.BASE_URL
         : "https://api.github.com";
     const installationOctokit = new Octokit({
-        authStrategy: createAppAuth,
-        auth: {
-            appId: process.env.APP_ID,
-            privateKey: fs.readFileSync(process.env.APP_PRIVATE_KEY, "utf8"),
-            installationId: process.env.INSTALLATION_ID,
-        },
+        // authStrategy: createAppAuth,
+        // auth: {
+        //     appId: process.env.APP_ID,
+        //     privateKey: fs.readFileSync(process.env.APP_PRIVATE_KEY, "utf8"),
+        //     installationId: process.env.INSTALLATION_ID,
+        // },
         baseUrl,
+        auth: `token ${process.env.PAT}`,
     });
 
     const private_key = fs.readFileSync(process.env.PRIVATE_KEY_PATH, "utf8");
