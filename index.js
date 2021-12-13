@@ -57,17 +57,22 @@ const main = async () => {
 
             // create user
             if (group.toLowerCase() === GROUP.toLowerCase()) {
-                installationOctokit.request("POST /admin/users", {
-                    login: user.split("@")[0],
-                    email: user,
-                });
+                try {
+                    installationOctokit.request("POST /admin/users", {
+                        login: user.split("@")[0],
+                        email: user,
+                    });
+                } catch (e) {
+                    console.log("why are you not catching");
+                    console.log(e);
+                }
             }
 
             res.sendStatus(200);
         } catch (err) {
             console.log(err);
             console.log("erroring and failing");
-            res.sendStatus(404);
+            res.sendStatus(500);
         }
     };
 
