@@ -12,13 +12,17 @@ const main = async () => {
         ? process.env.BASE_URL
         : "https://api.github.com";
     const installationOctokit = new Octokit({
+        baseUrl,
+
+        // Right now we can't use the admin endpoints with an app
+        // so we use a personal access token.  Replace the uncommented auth
+        // section with the following lines if that ever changes to use an app.
         // authStrategy: createAppAuth,
         // auth: {
         //     appId: process.env.APP_ID,
         //     privateKey: fs.readFileSync(process.env.APP_PRIVATE_KEY, "utf8"),
         //     installationId: process.env.INSTALLATION_ID,
         // },
-        baseUrl,
         auth: `token ${process.env.PAT}`,
     });
 
@@ -39,8 +43,6 @@ const main = async () => {
 
     const membership_add = async (event, res) => {
         try {
-            console.log("membership_add found");
-            console.log(event);
             let user;
             let group;
             // basically assumes only two targets in this array but doesn't care about order
@@ -51,9 +53,7 @@ const main = async () => {
                     group = target.displayName;
                 }
             }
-            console.log("Group membership add found");
-            console.log(user);
-            console.log(group);
+            console.log(`Group membership add found ${user} added to ${group}`);
 
             // create user
             if (group.toLowerCase() === GROUP.toLowerCase()) {
@@ -66,7 +66,8 @@ const main = async () => {
             res.sendStatus(200);
         } catch (err) {
             console.log(err);
-            res.sendStatus(500);
+            console.log("erroring and failing");
+            res.sendStatus(404);
         }
     };
 
