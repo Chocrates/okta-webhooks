@@ -51,10 +51,12 @@ const main = async () => {
             console.log(group);
 
             // create user
-            installationOctokit.request("POST /admin/users", {
-                login: user.split("@")[0],
-                email: user,
-            });
+            if (group.toLowerCase() === GROUP.toLowerCase()) {
+                installationOctokit.request("POST /admin/users", {
+                    login: user.split("@")[0],
+                    email: user,
+                });
+            }
 
             res.sendStatus(200);
         } catch (err) {
