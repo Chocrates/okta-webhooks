@@ -4,11 +4,21 @@ This project utilizes expressjs to listen for a single okta request (group.user_
 
 ## Setup
 Setup involves a few pieces.  Firstly you a machine somewhere to run this code.  Second you need to set up Okta to send webhooks to that server.
-### Express Server
--   Copy `.env.example` to `.env` and fill out the information
+### Express Server 
 -   Clone the repository
 -   Install the dependencies
     -   `npm install`
+-   Copy `.env.example` to `.env` and fill out the information  
+
+| Environment Variable  | Description     | 
+|-----------------------|--------------------------------------------------------------------------------|
+| PORT                  | Port to listen for events     | 
+| PRIVATE_KEY_PATH      | SSL Private Key path  |
+| CERTIFICATE_PATH      | SSL Private Key Certificate Path |
+| GROUP                 | Okta group on which we are adding users |
+| BASE_URL              | Base URL for your github instance in the form "https://<instance url>/api/v3" |
+| PAT                   | Personal Access Token of the user making requests to the GitHub API | 
+
 -   Finally run the server
     -   `node index.js`
     -   _Note:_ Okta requires ssl enabled so you may have to setup your certificates first. See [Let's Encrypt](https://certbot.eff.org/instructions?ws=other&os=ubuntufocal) for a fast solution.
